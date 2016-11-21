@@ -26,8 +26,8 @@ module.exports = yeoman.Base.extend({
 
   writing: function () {
     this.fs.copy(
-      this.templatePath('dev/index.html'),
-      this.destinationPath('dev/index.html')
+      this.templatePath('templates/'),
+      this.destinationPath('templates/')
     );
   },
 
