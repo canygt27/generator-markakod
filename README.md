@@ -32,7 +32,5 @@ ISC © [canygt27]()
 [npm-url]: https://npmjs.org/package/generator-markakod
 [travis-image]: https://travis-ci.org/canygt27/generator-markakod.svg?branch=master
 [travis-url]: https://travis-ci.org/canygt27/generator-markakod
-[daviddm-image]: https://david-dm.org/canygt27/generator-markakod.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/canygt27/generator-markakod
 [coveralls-image]: https://coveralls.io/repos/canygt27/generator-markakod/badge.svg
 [coveralls-url]: https://coveralls.io/r/canygt27/generator-markakod
