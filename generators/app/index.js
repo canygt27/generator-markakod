@@ -10,24 +10,32 @@ module.exports = yeoman.Base.extend({
       'Welcome to the groundbreaking ' + chalk.red('generator-markakod') + ' generator!'
     ));
 
+    var welcome =
+       'MARKAKOD WEB APPLİCATİON STARTER KIT';
+    console.log(welcome);
+
     var prompts = [{
-      type: 'confirm',
-      name: 'greet',
-      message: 'Would you like to enable this option?',
-      default: 'Welcome to Markakod Web Starter Kit'
+      type: 'input',
+      name: 'name',
+      message: 'Your project name?',
+      default: this.appname
     }];
 
     return this.prompt(prompts).then(function (props) {
+      var done = this.async();
       // To access props later use this.props.someAnswer;
       this.props = props;
-      this.greet = props.greet;
+      this.log(props.name);
+      done();
     }.bind(this));
   },
 
   writing: function () {
     this.fs.copy(
       this.templatePath('dev/index.html'),
-      this.destinationPath('dev/index.html')
+      this.destinationPath('dev/index.html'), {
+          name: this.props.name
+        }
     );
 
     this.fs.copy(
