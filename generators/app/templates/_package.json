@@ -1,0 +1,31 @@
+{
+  "name": "test-scaffolding",
+  "version": "1.0.0",
+  "description": "Markakod Project Starter Kit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Markakod",
+  "license": "ISC",
+  "devDependencies": {
+    "bourbon": "^4.2.7",
+    "browser-sync": "^2.18.1",
+    "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-iconfont": "^8.0.1",
+    "gulp-iconfont-css": "^2.1.0",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-spritesmith": "0.0.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.10",
+    "merge-stream": "^1.0.0",
+    "run-sequence": "^1.2.2",
+    "vinyl-buffer": "^1.0.0"
+  }
+}
