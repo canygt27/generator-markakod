@@ -1,6 +1,9 @@
-html, body {
-  background-color: red;
-  color: #fff;
-  background-size: cover;
-  font-size: 13px;
+
+.half-width {
+  width: 500px;
+  margin: 0 auto;
+
+  img {
+    margin: 0 auto;
+  }
 }

@@ -11,7 +11,7 @@ module.exports = yeoman.Base.extend({
     ));
 
     var welcome =
-       'MARKAKOD WEB APPLİCATİON STARTER KIT';
+        'MARKAKOD WEB APPLİCATİON STARTER KIT';
     console.log(welcome);
 
     var prompts = [{

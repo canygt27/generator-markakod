@@ -1,10 +1,10 @@
 {
   "name": "generator-markakod",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "build": "javascript",
   "status": "high",
   "description": "markakod project folder starter kit",
-  "homepage": "index.html",
+  "homepage": "https://github.com/canygt27/generator-markakod",
   "author": {
     "name": "canygt27",
     "email": "omer.yigit@markakod.com",
