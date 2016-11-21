@@ -1,6 +1,6 @@
 {
   "name": "generator-markakod",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "build": "javascript",
   "status": "high",
   "description": "markakod project folder starter kit",
@@ -8,7 +8,7 @@
   "author": {
     "name": "canygt27",
     "email": "omer.yigit@markakod.com",
-    "url": ""
+    "url": "http://omercan.me/"
   },
   "files": [
     "generators"
