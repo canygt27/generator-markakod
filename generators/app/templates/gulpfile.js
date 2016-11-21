@@ -52,7 +52,7 @@ gulp.task('styles', function () {
         .pipe($.sass.sync({
             outputStyle: 'expanded',
             precision: 10,
-            includePaths: require('node-bourbon').includePaths
+            // includePaths: require('node-bourbon').includePaths
         }).on('error', $.sass.logError))
         .pipe($.sourcemaps.write())
         .pipe($.cssnano())
