@@ -11,7 +11,7 @@ var dist = 'public';
 var temp = '.tmp';
 
 //iconfont task
-var fontName = 'Test';
+var fontName = 'Icons';
 
 gulp.task('iconfont', function() {
     gulp.src([dev + '/images/svg/icons/*.svg'])
@@ -63,13 +63,15 @@ gulp.task('styles', function () {
         }));
 });
 
-gulp.task('scripts', function () {
-   return gulp.src(dev + '/scripts/**/*.js')
-       .pipe(gulp.dest(temp + '/scripts'))
-       .pipe(gulp.dest(dev + '/scripts'))
-       .pipe(browserSync.reload({
-           stream: true
-       }));
+gulp.task('browserify', function() {
+    gulp.src(dev + '/scripts/**/*.js', {read: false})
+        .pipe($.browserify({
+            insertGlobals : true,
+            debug : !gulp.env.production,
+            paths: ['./node_modules','./frontend-dev/scripts/']
+        }))
+        .pipe($.uglify())
+        .pipe(gulp.dest(dist + '/scripts'))
 });
 
 gulp.task('fonts', function() {
@@ -85,8 +87,8 @@ gulp.task('images', function () {
 });
 
 gulp.task('html', function () {
-   return gulp.src(dev + '/*.html')
-       .pipe(gulp.dest(dist));
+    return gulp.src(dev + '/*.html')
+        .pipe(gulp.dest(dist));
 });
 
 gulp.task('serve', function() {
@@ -105,9 +107,8 @@ gulp.task('serve', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(dev + '/*.html', ['html']);
     gulp.watch(dev + '/styles/**/*.scss', ['styles']);
-    gulp.watch(dev + '/scripts/**/*.js', ['scripts']);
+    gulp.watch(dev + '/scripts/**/*.js', ['browserify']);
 });
 
-gulp.task('build', ['html', 'styles', 'scripts', 'fonts', 'images']);
+gulp.task('build', ['html', 'styles', 'browserify', 'fonts', 'images']);

@@ -1,5 +1,5 @@
 # generator-markakod [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> markakod project folder starter kit
+> Project Starter Kit with Gulp, Browserify and SCSS
 
 ## Installation
 
