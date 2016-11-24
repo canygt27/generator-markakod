@@ -1,6 +1,6 @@
 {
   "name": "generator-markakod",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "build": "javascript",
   "status": "high",
   "description": "markakod project folder starter kit",
