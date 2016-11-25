@@ -1,9 +1,9 @@
 {
   "name": "generator-markakod",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "build": "javascript",
   "status": "high",
-  "description": "markakod project folder starter kit",
+  "description": "Project starter kit with browserify, scss, iconfont and sprite",
   "homepage": "https://github.com/canygt27/generator-markakod",
   "author": {
     "name": "canygt27",
