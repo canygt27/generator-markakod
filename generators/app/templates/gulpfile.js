@@ -1,44 +1,37 @@
-var gulp = require('gulp');
-var gulpLoadPlugins = require('gulp-load-plugins');
-var browserSync = require('browser-sync').create();
-var merge = require('merge-stream');
-var buffer = require('vinyl-buffer');
-var $ = gulpLoadPlugins();
-var runSequence = require('run-sequence').use(gulp);
+var gulp = require('gulp'),
+    gulpLoadPlugins = require('gulp-load-plugins'),
+    browserSync = require('browser-sync').create(),
+    merge = require('merge-stream'),
+    buffer = require('vinyl-buffer'),
+    $ = gulpLoadPlugins(),
+    notify = require('gulp-notify'),
+    runSequence = require('run-sequence').use(gulp);
 
-var dev = 'dev';
-var dist = 'public';
-var temp = '.tmp';
+var dev = 'dev',
+    dist = 'public';
 
-var appStyles = '/styles';
-var appScripts = '/scripts';
-var appImages = '/images';
-var appFonts = '/fonts';
+var appStyles = '/scss',
+    appCss = '/css',
+    appScripts = '/js',
+    appImages = '/images',
+    appFonts = '/fonts';
 
 var devObj = {
-    styles: dev + appStyles,
-    scripts: dev + appScripts,
-    images: dev + appImages,
-    fonts: dev + appFonts
-};
-
-var distObj = {
-    styles: dist + appStyles,
-    scripts: dist + appScripts,
-    images: dist + appImages,
-    fonts: dist + appFonts
-};
-
-var tempObj = {
-    styles: temp + appStyles,
-    scripts: temp + appScripts,
-    fonts: temp + appFonts
-};
+        styles: dev + appStyles,
+        scripts: dev + appScripts,
+        images: dev + appImages,
+        fonts: dev + appFonts
+    },
+    distObj = {
+        styles: dist + appCss,
+        scripts: dist + appScripts,
+        images: dist + appImages,
+        fonts: dist + appFonts
+    };
 
 //iconfont task
 var fontName = 'Icons';
-
-gulp.task('iconfont', function() {
+gulp.task('iconfont', function () {
     gulp.src([devObj.images + '/svg/icons/*.svg'])
         .pipe($.iconfontCss({
             fontName: fontName,
@@ -50,10 +43,12 @@ gulp.task('iconfont', function() {
             fontName: fontName
         }))
         .pipe(gulp.dest(devObj.fonts));
+
 });
 
 //sprite task
 gulp.task('sprite', function () {
+
     var spriteData = gulp.src(devObj.images + '/icons/*.png').pipe($.spritesmith({
         imgName: 'sprite.png',
         cssName: '_sprite.scss',
@@ -72,40 +67,40 @@ gulp.task('sprite', function () {
 
 //style task
 gulp.task('styles', function () {
-    gulp.src(devObj.styles + '/**/*.scss')
-        .pipe($.plumber())
+    return gulp.src(devObj.styles + '/**/*.scss')
+        .pipe($.plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe($.sourcemaps.init())
         .pipe($.sass.sync({
             outputStyle: 'expanded',
             precision: 10,
             includePaths: require('node-bourbon').includePaths
-        }).on('error', $.sass.logError))
-        .pipe($.sourcemaps.write())
+        }))
         .pipe($.cssnano())
-        .pipe(gulp.dest(tempObj.styles))
+        .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(distObj.styles))
         .pipe(browserSync.reload({
             stream: true
         }));
 });
 
-//browseify task for scripts
-gulp.task('browserify', function() {
-    gulp.src(devObj.scripts + '/**/*.js', {read: false})
+//browseify task for js
+gulp.task('browserify', function () {
+    return gulp.src(devObj.scripts + '/*.js')
+        .pipe($.plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+        .pipe($.sourcemaps.init())
         .pipe($.browserify({
-            insertGlobals : true,
-            debug : !gulp.env.production,
+            insertGlobals: true,
+            debug: !gulp.env.production,
             paths: ['./node_modules', './' + devObj.scripts]
         }))
         .pipe($.uglify())
-        .pipe(gulp.dest(tempObj.scripts))
+        .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(distObj.scripts))
 });
 
 //move font task
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
     return gulp.src(devObj.fonts + '/**/*')
-        .pipe(gulp.dest(tempObj.fonts))
         .pipe(gulp.dest(distObj.fonts));
 });
 
@@ -122,24 +117,24 @@ gulp.task('html', function () {
         .pipe(gulp.dest(dist));
 });
 
-//work localhost on frontend task
-gulp.task('serve', function() {
+// work localhost on frontend task
+gulp.task('serve', function () {
     runSequence(['styles', 'browserify', 'fonts'], function () {
         browserSync.init({
             port: 9000,
             notify: false,
             server: {
-                baseDir: [dev, temp]
+                baseDir: [dist, dev]
             }
         });
     });
     gulp.watch(devObj.styles + '/**/*.scss', ['styles']);
-    gulp.watch(dev + '/*.html', browserSync.reload);
-    gulp.watch(devObj.scripts + '/**/*.js', browserSync.reload);
+    gulp.watch(dev + '/*.html', [browserSync.reload]);
+    gulp.watch(devObj.scripts + '/**/*.js', ['browserify', browserSync.reload]);
 });
 
 //for backend integration watch task
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch(devObj.styles + '/**/*.scss', ['styles']);
     gulp.watch(devObj.scripts + '/**/*.js', ['browserify']);
 });
