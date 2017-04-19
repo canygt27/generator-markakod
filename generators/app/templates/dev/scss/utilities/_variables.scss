@@ -1,0 +1,18 @@
+@import "bourbon";
+
+@include font-face("OpenSans", "/fonts/OpenSans-Light", light, $file-formats: ttf);
+@include font-face("OpenSans", "/fonts/OpenSans-Regular", $file-formats: ttf);
+@include font-face("OpenSans", "/fonts/OpenSans-Bold", bold, $file-formats: ttf);
+
+/*Color Variables*/
+$black: #000;
+$white: #fff;
+$grey: #dddddd;
+
+/*Responsive Variables*/
+$desktop-lg: 'only screen and (min-width: 1600px)';
+$desktop-md: 'only screen and (min-width: 1400px)';
+$desktop-sm: 'only screen and (min-width: 1200px)';
+$desktop: 'only screen and (min-width: 992px)';
+$tablet: 'only screen and (min-width: 768px)';
+$mobile: 'only screen and (min-width: 320px)';

@@ -1,0 +1,22 @@
+$output-bourbon-deprecation-warnings: false;
+
+@import "templates/libs/bootstrap/bootstrap";
+@import "templates/libs/font-awesome/font-awesome";
+
+//utilities for website
+@import "utilities/variables";
+@import "utilities/scaffolding";
+@import "utilities/border-radius";
+@import "utilities/center-element";
+@import "utilities/buttons-variants";
+@import "utilities/background-cover";
+
+//atom elements for website
+@import "atoms/buttons";
+
+//organic elements for website
+@import "organisms/header";
+@import "organisms/footer";
+
+//molecule elements for website
+@import "molecules/search";

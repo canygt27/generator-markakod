@@ -64,13 +64,13 @@ module.exports = yeoman.Base.extend({
     );
 
     this.fs.copy(
-        this.templatePath('dev/scripts/main.js'),
-        this.destinationPath('dev/scripts/main.js')
+        this.templatePath('dev/js/main.js'),
+        this.destinationPath('dev/js/main.js')
     );
 
     this.fs.copy(
-        this.templatePath('dev/styles/main.scss'),
-        this.destinationPath('dev/styles/main.scss')
+        this.templatePath('dev/scss/main.scss'),
+        this.destinationPath('dev/scss/main.scss')
     );
   },
 

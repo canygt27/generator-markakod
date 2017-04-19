@@ -1,0 +1,4 @@
+.btn-pink {
+  @include button-variant($white, $black, $black);
+  @include border-radius(0);
+}

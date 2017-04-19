@@ -5,10 +5,11 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     $ = gulpLoadPlugins(),
     notify = require('gulp-notify'),
+    each = require('async-each-series'),
     runSequence = require('run-sequence').use(gulp);
 
 var dev = 'dev',
-    dist = 'public';
+    dist = 'public_html';
 
 var appStyles = '/scss',
     appCss = '/css',
@@ -30,7 +31,7 @@ var devObj = {
     };
 
 //iconfont task
-var fontName = 'Icons';
+var fontName = 'FontName';
 gulp.task('iconfont', function () {
     gulp.src([devObj.images + '/svg/icons/*.svg'])
         .pipe($.iconfontCss({
@@ -61,7 +62,7 @@ gulp.task('sprite', function () {
         .pipe(gulp.dest(devObj.images));
 
     var cssStream = spriteData.css
-        .pipe(gulp.dest(devObj.styles + '/template/utilities/icons'));
+        .pipe(gulp.dest(devObj.styles + '/utilities/icons'));
     return merge(imgStream, cssStream);
 });
 
@@ -73,7 +74,7 @@ gulp.task('styles', function () {
         .pipe($.sass.sync({
             outputStyle: 'expanded',
             precision: 10,
-            includePaths: require('node-bourbon').includePaths
+            includePaths: [require('node-bourbon').includePaths]
         }))
         .pipe($.cssnano())
         .pipe($.sourcemaps.write('.'))
@@ -93,7 +94,7 @@ gulp.task('browserify', function () {
             debug: !gulp.env.production,
             paths: ['./node_modules', './' + devObj.scripts]
         }))
-        .pipe($.uglify())
+        //.pipe($.uglify())
         .pipe($.sourcemaps.write('.'))
         .pipe(gulp.dest(distObj.scripts))
 });
@@ -113,23 +114,24 @@ gulp.task('images', function () {
 
 //copy html task
 gulp.task('html', function () {
-    return gulp.src(dev + '/*.html')
+    return gulp.src([dev + '/**/*.html'])
         .pipe(gulp.dest(dist));
 });
 
 // work localhost on frontend task
 gulp.task('serve', function () {
-    runSequence(['styles', 'browserify', 'fonts'], function () {
+    runSequence(['html', 'styles', 'browserify', 'fonts'], function () {
         browserSync.init({
             port: 9000,
             notify: false,
             server: {
-                baseDir: [dist, dev]
+                baseDir: ['./' + dist, './' + dev]
             }
         });
     });
     gulp.watch(devObj.styles + '/**/*.scss', ['styles']);
-    gulp.watch(dev + '/*.html', [browserSync.reload]);
+    gulp.watch(dev + '/*.html', ['html', browserSync.reload]);
+    // gulp.watch(devObj.images, [browserSync.reload]);
     gulp.watch(devObj.scripts + '/**/*.js', ['browserify', browserSync.reload]);
 });
 

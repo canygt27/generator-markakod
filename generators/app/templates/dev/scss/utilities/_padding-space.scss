@@ -1,0 +1,4 @@
+@mixin default-padding($value) {
+  padding-top: $value;
+  padding-bottom: $value;
+}

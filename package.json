@@ -1,6 +1,6 @@
 {
   "name": "generator-markakod",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "build": "javascript",
   "status": "high",
   "description": "Project starter kit with browserify, scss, iconfont and sprite",

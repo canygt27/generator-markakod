@@ -1,6 +1,8 @@
 # generator-markakod [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > Mean Stack Project Starter Kit with Gulp, Iconfont, Sprite, Browserify and SCSS.
 
+You can use bourbon and see atomic file structure in SCSS.
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-markakod using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
